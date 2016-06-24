@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Calculadora</title>
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+</head>
+<body>
+		<!-- jQuery -->
+		<script src="https://code.jquery.com/jquery.js"></script>
+		<!-- Bootstrap JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+		<script type="text/javascript"> 
+
+		var programa = function(){
+			var historial = [];
+
+			do{
+			var parametros = pedirParametros();
+			var resultado = calculadora(parametros.operador, parametros.valor_uno,parametros.valor_dos);
+			
+			var historia = {};
+			historia.parametros = parametros;
+			historia.resultado = resultado;
+			historial.push(historia);
+			
+			alert(resultado);
+			}
+
+			while(confirm("Volver a ejecutar?"));
+
+			for(var h in historial){
+				console.log(historial[h]);
+			}
+
+			console.log("Gracias por usar la calculadora");
+		};
+
+		function pedirParametros(){
+			do {
+				var operador = prompt("que operacion desea realizar (suma, resta, multiplicacion, division, raiz)?").toLowerCase();
+				// operador = operador.toLowerCase();
+			} while(operador != "suma" && operador != "resta" && operador != "multiplicacion" && operador != "division" && operador !="raiz");
+
+			do {
+				var numero_1 = parseInt(prompt("ingrese el valor del primer numero"));
+			} while (isNaN(numero_1));
+
+			if(operador!="raiz")
+				do {
+				var numero_2 = parseInt(prompt("ingrese el valor del segundo numero"));
+				} while (isNaN(numero_2));
+
+			var obj = {};
+			obj.operador = operador;
+			obj.valor_uno = numero_1;
+			obj.valor_dos = numero_2;
+
+			return obj; 
+		};
+
+		function calculadora(operador, numero_1, numero_2) {
+			var resultado;
+			switch(operador) {
+				case "suma":
+				resultado = numero_1 + numero_2;
+				break;
+				case "resta":
+				resultado = numero_1 - numero_2;
+				break;
+				case "multiplicacion":
+				resultado = numero_1 * numero_2;
+				break;
+				case "division":
+				resultado = numero_1 / numero_2;
+				break;
+				case "raiz":
+				resultado = Math.sqrt(numero_1);
+				break;
+			};
+			
+			return resultado;
+		};
+
+
+		programa();
+
+		</script>
+</body>
+</html>
